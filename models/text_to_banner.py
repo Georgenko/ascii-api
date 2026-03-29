@@ -15,8 +15,8 @@ from services.font_utils import (
 
 class TextToBanner(BaseModel):
     cyrillic: bool = False
-    prompt: str
     font: str = "standard"
+    prompt: str
 
     @field_validator("font")
     @classmethod
