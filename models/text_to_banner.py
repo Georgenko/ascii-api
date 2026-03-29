@@ -1,6 +1,7 @@
 import unicodedata as ud
 
-from pydantic import BaseModel, model_validator
+from pydantic import BaseModel, field_validator
+from pydantic_core.core_schema import ValidationInfo
 
 from services.font_utils import (
     CYRILLIC,
@@ -13,21 +14,26 @@ from services.font_utils import (
 
 
 class TextToBanner(BaseModel):
+    cyrillic: bool = False
     prompt: str
     font: str = "standard"
-    cyrillic: bool = False
 
-    @model_validator(mode="after")
-    def validate_font_prompt(
-        self,
-    ):  # TODO: create separate function for validating font and one for prompt
-        valid_fonts = cyrillic_fonts if self.cyrillic else all_fonts
-        if self.font not in valid_fonts:
+    @field_validator("font")
+    @classmethod
+    def validate_font(cls, font: str, info: ValidationInfo) -> str:
+        cyrillic = info.data.get("cyrillic", False)
+        valid_fonts = cyrillic_fonts if cyrillic else all_fonts
+        if font not in valid_fonts:
             raise ValueError(
-                f"Invalid font: {self.font}. Available {CYRILLIC_DISPLAY if self.cyrillic else ''} fonts: {valid_fonts}"
+                f"Invalid font: {font}. Available {CYRILLIC_DISPLAY if cyrillic else ''} fonts: {valid_fonts}"
             )
+        return font
 
-        for char in self.prompt:
+    @field_validator("prompt")
+    @classmethod
+    def validate_prompt_characters(cls, prompt: str, info: ValidationInfo) -> str:
+        cyrillic = info.data.get("cyrillic", False)
+        for char in prompt:
             if char.isspace():
                 continue
             category = ud.category(char)
@@ -36,11 +42,11 @@ class TextToBanner(BaseModel):
                     f"Invalid char: {char}. Only letters, digits, punctuation, symbols allowed."
                 )
             if category.startswith("L"):
-                expected_script = CYRILLIC if self.cyrillic else LATIN
+                expected_script = CYRILLIC if cyrillic else LATIN
                 char_name = ud.name(char)
                 if expected_script not in char_name:
                     raise ValueError(
                         f"Invalid char: {char}. "
-                        f"Only {CYRILLIC_DISPLAY if self.cyrillic else LATIN_DISPLAY} letters allowed"
+                        f"Only {CYRILLIC_DISPLAY if cyrillic else LATIN_DISPLAY} letters allowed"
                     )
-        return self
+        return prompt
