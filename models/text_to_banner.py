@@ -3,7 +3,7 @@ import unicodedata as ud
 from pydantic import BaseModel, field_validator
 from pydantic_core.core_schema import ValidationInfo
 
-from services.font_utils import (
+from services.fonts import (
     CYRILLIC,
     CYRILLIC_DISPLAY,
     LATIN,
@@ -13,7 +13,7 @@ from services.font_utils import (
 )
 
 
-class TextToBanner(BaseModel):
+class TextToBannerRequest(BaseModel):
     cyrillic: bool = False
     font: str = "standard"
     prompt: str
