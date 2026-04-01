@@ -2,10 +2,12 @@ from fastapi import UploadFile
 from PIL import Image
 from PIL.Image import Resampling
 
-from constants import STD_CHAR_RAMP
+from constants import MINIMAL_CHAR_RAMP, STD_CHAR_RAMP
 
 
-def convert_image_to_image(image: UploadFile, width_pixels: int, num_chars: int) -> str:
+def convert_image_to_image(
+    image: UploadFile, width_pixels: int, num_chars: int, minimal
+) -> str:
     img = Image.open(image.file)
     height_pixels = (
         width_pixels // 2
@@ -16,7 +18,10 @@ def convert_image_to_image(image: UploadFile, width_pixels: int, num_chars: int)
     img = img.convert("L")
     img.save("grayscale.png")
 
-    chars = get_chars(num_chars)
+    if minimal:
+        chars = MINIMAL_CHAR_RAMP
+    else:
+        chars = get_chars(num_chars)
 
     result = ""
     pixels = list(img.getdata())
