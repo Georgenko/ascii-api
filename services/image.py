@@ -1,8 +1,21 @@
-from fastapi import UploadFile
-from PIL import Image
+from fastapi import HTTPException, UploadFile
+from PIL import Image, UnidentifiedImageError
 from PIL.Image import Resampling
 
 from constants import MINIMAL_CHAR_RAMP, STD_CHAR_RAMP
+
+
+def validate_image(image: UploadFile):
+    try:
+        img = Image.open(image.file)
+        img.verify()
+        image.file.seek(0)
+    except UnidentifiedImageError:
+        raise HTTPException(
+            status_code=400, detail="Image cannot be opened or identified"
+        )
+    except Exception as ex:
+        raise HTTPException(status_code=400, detail=f"Image is not valid: {ex.args}")
 
 
 def convert_image_to_image(
@@ -16,7 +29,6 @@ def convert_image_to_image(
 
     # TODO: maybe explore using luma 709 and/or increasing contrast before converting
     img = img.convert("L")
-    img.save("grayscale.png")
 
     if minimal:
         chars = MINIMAL_CHAR_RAMP

@@ -3,14 +3,14 @@ from typing import Annotated
 from fastapi import APIRouter, Query, UploadFile
 from fastapi.responses import HTMLResponse, PlainTextResponse
 
-from constants import DEFAULT_NUM_CHARS, DEFAULT_WIDTH, INDEX_HTML
+from constants import DEFAULT_NUM_CHARS, DEFAULT_WIDTH, INDEX_HTML, MAX_WIDTH
 from models.text_to_banner import TextToBannerRequest
 from services.banner import convert_text_to_banner
 from services.fonts import (
     all_fonts,
     cyrillic_fonts,
 )
-from services.image import convert_image_to_image
+from services.image import convert_image_to_image, validate_image
 
 router = APIRouter()
 
@@ -36,8 +36,9 @@ async def text_to_banner(request: TextToBannerRequest):
 @router.post("/image-to-image", response_class=PlainTextResponse)
 async def image_to_image(
     image: UploadFile,
-    width: int = DEFAULT_WIDTH,
-    num_chars: Annotated[int, Query(le=DEFAULT_NUM_CHARS, gt=0)] = DEFAULT_NUM_CHARS,
+    width: Annotated[int, Query(gt=0, le=MAX_WIDTH)] = DEFAULT_WIDTH,
+    num_chars: Annotated[int, Query(gt=0, le=DEFAULT_NUM_CHARS)] = DEFAULT_NUM_CHARS,
     minimal: bool = False,
-):  # TODO: add validation
+):
+    validate_image(image)
     return convert_image_to_image(image, width, num_chars, minimal)
