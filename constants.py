@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 
 BASE_DIR = Path(__file__).parent
@@ -15,3 +16,5 @@ MINIMAL_CHAR_RAMP = "@#S%?*+;:,. "
 IHDR_BYTES_LENGTH = 25
 
 POLLINATIONS_URL = "https://image.pollinations.ai/prompt/{prompt}"
+FILESYSTEM_UNSAFE_CHARS = re.compile(r'[<>:"/\\|?*\x00-\x1f]')
+SEPARATORS = re.compile(r"[\s\-–—,;!.]+")

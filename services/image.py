@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from fastapi import HTTPException, UploadFile
 from PIL import Image, UnidentifiedImageError
 from PIL.Image import Resampling
@@ -22,11 +24,12 @@ def convert_image_to_image(
     image: UploadFile, width_pixels: int, num_chars: int, minimal
 ) -> str:
     img = Image.open(image.file)
-    return _pil_image_to_ascii(img, width_pixels, num_chars, minimal)
+    filename = f"debug/{Path(image.filename).stem}"
+    return _pil_image_to_ascii(img, width_pixels, num_chars, minimal, filename)
 
 
 def _pil_image_to_ascii(
-    img: Image.Image, width_pixels: int, num_chars: int, minimal: bool
+    img: Image.Image, width_pixels: int, num_chars: int, minimal: bool, filename: str
 ) -> str:
     height_pixels = (
         width_pixels // 2
@@ -46,9 +49,16 @@ def _pil_image_to_ascii(
             result += chars[pxl * (len(chars) - 1) // 255]
         result += "\n"
 
+    save_debug_txt(result, filename)
+
     return result
 
 
 def get_chars(n: int) -> str:
     step = len(STD_CHAR_RAMP) // n
     return STD_CHAR_RAMP[::step][:n]
+
+
+def save_debug_txt(result: str, filename: str) -> None:
+    with open(f"{filename}.txt", "w") as file:
+        file.write(result)
