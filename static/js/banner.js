@@ -15,5 +15,6 @@ function buildBannerRequest(prompt, font = "standard", cyrillic = false) {
 }
 
 function showResult(text) {
-  document.getElementById("result").textContent = text;
+    document.getElementById("result").textContent = text;
+    show('result-view');
 }
