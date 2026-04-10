@@ -1,8 +1,32 @@
-<html lang="en">
-    <body>
-        <h1>Welcome to ASCII art API :)</h1>
-        <p>Here you can check the <a href="/docs">Swagger docs</a>.</p>
-        <p>Here you can check the <a href="/redoc">ReDoc docs</a>.</p>
-    </body>
+<!DOCTYPE html>
+<head>
+    <title>ASCII art API</title>
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/banner.js"></script>
+</head>
+<body>
+<h1>ASCII art API</h1>
+
+
+<div id="text-to-banner">
+    <h1>Text -> ASCII</h1>
+    <input type="text" placeholder="Write your text here..."/>
+    <button onclick="convertTextToBanner()">Convert</button>
+</div>
+<div id="image-to-ascii">
+    <h1>Image -> ASCII</h1>
+    <input type="file" accept="image/*"/>
+    <button>Convert</button>
+</div>
+<div id="prompt-to-ascii">
+    <h1>Prompt -> ASCII</h1>
+    <textarea placeholder="Write your prompt here..."></textarea>
+    <button>Generate</button>
+</div>
+
+<p>Here you can check the <a href="/docs">Swagger docs</a>.</p>
+<p>Here you can check the <a href="/redoc">ReDoc docs</a>.</p>
+
+
+</body>
 </html>
-<!-- TODO: add some cool ASCII demos to intrigue the user, cause now it's dryyy ah-->
