@@ -17,8 +17,16 @@
 <main>
     <div id="text-to-banner" class="section">
         <h2>Text -> ASCII</h2>
-        <label for="banner-textarea">Text:</label>
-        <textarea id="banner-textarea"></textarea>
+
+        <label for="textarea-banner">Text:</label>
+        <textarea id="textarea-banner"></textarea>
+
+        <label for="select-font">Font:</label>
+        <select id="select-font"></select>
+
+        <label for="checkbox-cyrillic">Cyrillic:</label>
+        <input type="checkbox" id="checkbox-cyrillic" onchange="loadBannerFonts()">
+
         <button onclick="convertTextToBanner()">Convert</button>
     </div>
     <div id="image-to-ascii" class="section">
