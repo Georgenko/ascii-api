@@ -1,4 +1,4 @@
-const sections = ['text-to-banner', 'image-to-ascii', 'prompt-to-ascii', 'result-view', 'more'];
+const sections = ['text-to-banner', 'image-to-ascii', 'prompt-to-ascii', 'result-view'];
 let lastSection = 'text-to-banner';
 
 function show(id) {

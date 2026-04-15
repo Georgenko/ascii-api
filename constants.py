@@ -3,8 +3,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).parent
 
-TEMPLATES_DIR = BASE_DIR / "templates"
-INDEX_HTML = TEMPLATES_DIR / "index.html"
+INDEX_HTML = BASE_DIR / "templates" / "index.html"
 
 DEFAULT_WIDTH = 128
 MAX_WIDTH = 10_000  # just to have a limitation

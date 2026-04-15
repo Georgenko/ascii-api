@@ -1,25 +1,35 @@
 body {
-    display: flex;
-    margin: 0;
+    display: flex; /* Makes body a flex container so nav and main stack horizontally */
+    margin: 0; /* Removes implicit margins */
 }
 
 nav {
-    padding: 1rem;
-    border-right: 1px solid #ccc;
+    padding: 1rem; /* Adds some padding so it's not glued to the page borders */
+    border-right: 1px solid #ccc; /* Separates nav and main with a border */
 }
 
 nav a {
-    display: block;
-    margin: 0.5rem 0;
-    cursor: pointer;
-}
-
-nav h1 {
-    font-size: 2rem;
-    margin: 0; /* remove top & bottom margin */
+    display: block; /* Makes links stack vertically */
+    margin: 1rem 0; /* A bit of space between them */
+    cursor: pointer; /* Shows they are clickable on hover */
 }
 
 main {
     padding: 1rem;
     flex: 1;
+}
+
+/* Gives fixed size to all h1 headers */
+h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+/* Gives fixed size to textarea and font dropdown */
+#text-to-banner textarea {
+    width: 400px;
+    height: 100px;
+}
+#text-to-banner select {
+    width: 200px;
 }
