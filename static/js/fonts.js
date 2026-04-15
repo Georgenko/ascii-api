@@ -5,7 +5,7 @@ async function loadBannerFonts() {
         const data = await getFonts(cyrillic);
         populateFontSelect(data.fonts);
     } catch (err) {
-        console.error("Failed to load fonts:", err);
+        alert(`Failed to load fonts:\n${err.message}`);
     }
 }
 

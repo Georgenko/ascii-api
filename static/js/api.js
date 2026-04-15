@@ -25,5 +25,7 @@ async function handleResponseError(response) {
     } catch {
         throw new Error(`Request failed with status ${response.status}`);
     }
-    throw new Error(error.detail ?? "Request failed"); // FastApi returns errors in "detail"
+    throw new Error(
+        typeof error.detail === "string" ? error.detail : error.detail[0].msg
+    ); // FastApi returns errors as string/array in "details"
 }
