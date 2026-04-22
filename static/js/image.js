@@ -11,8 +11,8 @@ async function convertImageToImage(){
     formData.append('image', file);
 
     const minimal = true;
-    try {
-        const result = await postImageToImage(formData, minimal)
+    try { // TODO: add width input in html and get from user
+        const result = await postImageToImage(formData, minimal, 500)
         showResult(result);
     } catch (err) {
         alert(`Failed to convert image to ascii:\n${err.message}`);
