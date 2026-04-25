@@ -18,8 +18,8 @@ async function postTextToBanner(requestBody) {
     return response.text();
 }
 
-async function postImageToImage(imageData, minimal, width) {
-    const response = await fetch (`${BASE_URL}/image-to-image?minimal=${minimal}&width=${width}`, {
+async function postImageToImage(imageData, minimal, width, numChars) {
+    const response = await fetch(`${BASE_URL}/image-to-image?minimal=${minimal}&width=${width}&num_chars=${numChars}`, {
         method: "POST",
         body: imageData
     });
