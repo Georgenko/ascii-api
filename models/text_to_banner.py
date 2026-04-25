@@ -16,7 +16,7 @@ from services.fonts import (
 class TextToBannerRequest(BaseModel):
     cyrillic: bool = False
     font: str = "standard"
-    prompt: str
+    text: str
 
     @field_validator("font")
     @classmethod
@@ -29,11 +29,11 @@ class TextToBannerRequest(BaseModel):
             )
         return font
 
-    @field_validator("prompt")
+    @field_validator("text")
     @classmethod
-    def validate_prompt_characters(cls, prompt: str, info: ValidationInfo) -> str:
+    def validate_text_characters(cls, text: str, info: ValidationInfo) -> str:
         cyrillic = info.data.get("cyrillic", False)
-        for char in prompt:
+        for char in text:
             if char.isspace():
                 continue
             category = ud.category(char)
@@ -49,4 +49,4 @@ class TextToBannerRequest(BaseModel):
                         f"Invalid char: {char}. "
                         f"Only {CYRILLIC_DISPLAY if cyrillic else LATIN_DISPLAY} letters allowed"
                     )
-        return prompt
+        return text
