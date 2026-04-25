@@ -53,7 +53,7 @@ async function handleResponseError(response) {
 
     if (Array.isArray(detail) && detail.length > 0) {
         const { msg, loc } = detail[0];
-        throw new Error(`${msg}\n${loc}`);
+        throw new Error(`Message: ${msg}\nLocation: ${loc}`);
     }
 
     throw new Error(`Request failed with status ${response.status}`);

@@ -12,8 +12,8 @@ async function convertImageToImage(){
 
     const minimal = true;
     try { // TODO: add width input in html and get from user
-        const result = await postImageToImage(formData, minimal, 500)
-        showResult(result);
+        const imageResult = await postImageToImage(formData, minimal, 500)
+        showResult(imageResult, "pre-banner", "banner-view");
     } catch (err) {
         alert(`Failed to convert image to ascii:\n${err.message}`);
     }
