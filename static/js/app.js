@@ -9,8 +9,7 @@ function show(id) {
 
 show('text-to-banner');
 
-function showResult(result, preElemId, divElemId) {
-    // TODO: see if you can get the pre element from the div, so you can reduce args to 2
-    document.getElementById(preElemId).textContent = result;
+function showResult(result, divElemId) {
+    document.querySelector(`#${divElemId} pre`).textContent = result;
     show(divElemId);
 }

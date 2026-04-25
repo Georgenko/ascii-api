@@ -6,7 +6,7 @@ async function convertTextToBanner() {
 
     try {
         const banner = await postTextToBanner(request);
-        showResult(banner, "pre-banner", "banner-view");
+        showResult(banner, "banner-view");
     } catch (err) {
         alert(`Failed to generate banner:\n${err.message}`);
     }
