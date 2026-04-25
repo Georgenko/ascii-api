@@ -1,13 +1,14 @@
 async function convertPromptToImage(){
     const prompt = document.getElementById("textarea-prompt").value;
-    const minimal = document.getElementById("checkbox-minimal-prompt").checked;
+
+    const { minimal, width, numChars } = getImageOptions();
 
     if (!prompt) {
         alert('Text cannot be empty');
         return;
     }
 
-    const request = buildPromptRequest(prompt, minimal);
+    const request = buildPromptRequest(prompt, minimal, width, numChars);
 
     try {
         const imageResult = await postPromptToImage(request);
@@ -17,6 +18,6 @@ async function convertPromptToImage(){
     }
 }
 
-function buildPromptRequest(prompt, minimal, width = 500, num_chars = 50) {
+function buildPromptRequest(prompt, minimal, width, num_chars) {
     return {prompt, width, num_chars, minimal};
 }

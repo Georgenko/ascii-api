@@ -39,16 +39,6 @@
         <label for="image">Upload an image:</label>
         <input type="file" accept="image/*" id="image"/><br><br>
 
-        <label for="image-width">Width:</label>
-        <input type="text" id="image-width"/><br><br>
-
-        <label for="checkbox-minimal-image">Minimal (uses only @#S%?*+;:,. ):</label>
-        <input type="checkbox" id="checkbox-minimal-image" checked><br><br>
-
-        <label for="image-num-chars">Number of characters:</label>
-        <input type="text" id="image-num-chars"/>
-        <span>This determines how many evenly-distributed symbols to use from the following: $@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. </span><br>
-
         <button onclick="convertImageToImage()">Convert</button>
     </div>
     <div id="prompt-to-ascii" class="section">
@@ -57,10 +47,18 @@
         <label for="textarea-prompt">Prompt:</label><br>
         <textarea id="textarea-prompt"></textarea><br><br>
 
-        <label for="checkbox-minimal-prompt">Minimal (uses only @#S%?*+;:,. ):</label>
-        <input type="checkbox" id="checkbox-minimal-prompt" checked><br><br>
-
         <button onclick="convertPromptToImage()">Generate</button>
+    </div>
+    <div id="image-options">
+        <label for="image-width">Width:</label>
+        <input type="text" id="image-width"/><br><br>
+
+        <label for="image-minimal">Minimal (uses only @#S%?*+;:,. ):</label>
+        <input type="checkbox" id="image-minimal" checked><br><br>
+
+        <label for="image-num-chars">Number of characters:</label>
+        <input type="text" id="image-num-chars"/>
+        <span>This determines how many evenly-distributed symbols to use from the following: $@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. </span><br><br>
     </div>
     <div id="docs" class="section">
         <p>You can check the <a href="/docs">Swagger</a> or <a href="/redoc">ReDoc</a> docs</p>
